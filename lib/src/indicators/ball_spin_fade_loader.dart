@@ -74,6 +74,7 @@ class _BallSpinFadeLoaderState extends State<BallSpinFadeLoader>
               child: IndicatorShapeWidget(
                 shape: Shape.circle,
                 index: i,
+                useGradient: true,
               ),
             ),
           ),

@@ -22,6 +22,7 @@ enum Shape {
 class IndicatorShapeWidget extends StatelessWidget {
   final Shape shape;
   final double? data;
+  final bool useGradient;
 
   /// The index of shape in the widget.
   final int index;
@@ -31,6 +32,7 @@ class IndicatorShapeWidget extends StatelessWidget {
     required this.shape,
     this.data,
     this.index = 0,
+    this.useGradient = false,
   }) : super(key: key);
 
   @override
@@ -50,6 +52,7 @@ class IndicatorShapeWidget extends StatelessWidget {
           data,
           decorateData.strokeWidth,
           pathColor: decorateData.pathBackgroundColor,
+          useGradient: useGradient,
         ),
       ),
     );
@@ -63,6 +66,7 @@ class _ShapePainter extends CustomPainter {
   final double? data;
   final double strokeWidth;
   final Color? pathColor;
+  final bool useGradient;
 
   _ShapePainter(
     this.color,
@@ -70,6 +74,7 @@ class _ShapePainter extends CustomPainter {
     this.data,
     this.strokeWidth, {
     this.pathColor,
+    required this.useGradient,
   })  : _paint = Paint()..isAntiAlias = true,
         super();
 
@@ -78,14 +83,20 @@ class _ShapePainter extends CustomPainter {
     switch (shape) {
       case Shape.circle:
         _paint
+          ..shader = useGradient
+              ? LinearGradient(colors: [color, Colors.red]).createShader(
+                  Rect.fromCircle(
+                      center: Offset(size.width / 2, size.height / 2),
+                      radius: size.shortestSide / 2))
+              : null
           ..color = color
           ..style = PaintingStyle.fill;
-        canvas.drawCircle(
+        return canvas.drawCircle(
           Offset(size.width / 2, size.height / 2),
           size.shortestSide / 2,
           _paint,
         );
-        break;
+
       case Shape.ringThirdFour:
         if (pathColor != null) {
           _paint
