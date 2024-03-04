@@ -6,8 +6,11 @@ import 'package:loading_indicator/src/shape/indicator_painter.dart';
 
 /// BallSpinFadeLoader.
 class BallSpinFadeLoader extends StatefulWidget {
-  const BallSpinFadeLoader({Key? key}) : super(key: key);
-
+  const BallSpinFadeLoader({
+    Key? key,
+    required this.useGradient,
+  }) : super(key: key);
+  final bool useGradient;
   @override
   State<BallSpinFadeLoader> createState() => _BallSpinFadeLoaderState();
 }
@@ -74,7 +77,7 @@ class _BallSpinFadeLoaderState extends State<BallSpinFadeLoader>
               child: IndicatorShapeWidget(
                 shape: Shape.circle,
                 index: i,
-                useGradient: true,
+                useGradient: widget.useGradient,
               ),
             ),
           ),

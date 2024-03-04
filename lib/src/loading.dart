@@ -93,6 +93,8 @@ class LoadingIndicator extends StatelessWidget {
   /// Animation status, true will pause the animation, default is false
   final bool pause;
 
+  final bool useGradient;
+
   const LoadingIndicator({
     Key? key,
     required this.indicatorType,
@@ -101,6 +103,7 @@ class LoadingIndicator extends StatelessWidget {
     this.strokeWidth,
     this.pathBackgroundColor,
     this.pause = false,
+    this.useGradient = false,
   }) : super(key: key);
 
   @override
@@ -124,14 +127,14 @@ class LoadingIndicator extends StatelessWidget {
         aspectRatio: 1,
         child: Container(
           color: backgroundColor,
-          child: _buildIndicator(),
+          child: _buildIndicator(useGradient),
         ),
       ),
     );
   }
 
   /// return the animation indicator.
-  _buildIndicator() {
+  _buildIndicator(bool useGradient) {
     switch (indicatorType) {
       case Indicator.ballPulse:
         return const BallPulse();
@@ -182,7 +185,7 @@ class LoadingIndicator extends StatelessWidget {
       case Indicator.ballScaleRippleMultiple:
         return const BallScaleRippleMultiple();
       case Indicator.ballSpinFadeLoader:
-        return const BallSpinFadeLoader();
+        return BallSpinFadeLoader(useGradient: useGradient);
       case Indicator.lineSpinFadeLoader:
         return const LineSpinFadeLoader();
       case Indicator.triangleSkewSpin:
