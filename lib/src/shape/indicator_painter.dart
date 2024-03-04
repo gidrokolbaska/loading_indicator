@@ -84,8 +84,8 @@ class _ShapePainter extends CustomPainter {
       case Shape.circle:
         _paint
           ..shader = useGradient
-              ? LinearGradient(colors: [color, Colors.red]).createShader(
-                  Rect.fromCircle(
+              ? LinearGradient(colors: [color, const Color(0xffC5EAEA)])
+                  .createShader(Rect.fromCircle(
                       center: Offset(size.width / 2, size.height / 2),
                       radius: size.shortestSide / 2))
               : null
